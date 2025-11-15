@@ -1,7 +1,8 @@
 import Avatar from '@/Components/ui/Avatar';
-import { Link, usePage } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { BarChart3, ChevronRight, FileText, LayoutDashboard, LogOut, Monitor, Tag } from 'lucide-react';
 import { useEffect } from 'react';
 
 export default function Sidebar({ auth, isOpen, onClose }) {
@@ -28,81 +29,27 @@ export default function Sidebar({ auth, isOpen, onClose }) {
         {
             name: 'Dashboard',
             route: 'admin.dashboard',
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                    />
-                </svg>
-            ),
+            icon: <LayoutDashboard className="h-5 w-5" />,
         },
         {
             name: 'Platform',
             route: 'admin.platform.index',
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            ),
+            icon: <Monitor className="h-5 w-5" />,
         },
         {
             name: 'Konten',
             route: 'admin.konten.index',
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
-                </svg>
-            ),
+            icon: <FileText className="h-5 w-5" />,
         },
         {
             name: 'Tag',
             route: 'admin.tag.index',
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
-                    />
-                </svg>
-            ),
-        },
-        {
-            name: 'Pengguna',
-            route: 'admin.pengguna.index',
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                    />
-                </svg>
-            ),
+            icon: <Tag className="h-5 w-5" />,
         },
         {
             name: 'Laporan',
             route: 'admin.laporan.index',
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
-                </svg>
-            ),
+            icon: <BarChart3 className="h-5 w-5" />,
         },
     ];
 
@@ -115,7 +62,6 @@ export default function Sidebar({ auth, isOpen, onClose }) {
             'admin.platform.index': '/admin/platform',
             'admin.konten.index': '/admin/konten',
             'admin.tag.index': '/admin/tag',
-            'admin.pengguna.index': '/admin/pengguna',
             'admin.laporan.index': '/admin/laporan',
         };
 
@@ -187,7 +133,6 @@ export default function Sidebar({ auth, isOpen, onClose }) {
                                     'admin.platform.index': '/admin/platform',
                                     'admin.konten.index': '/admin/konten',
                                     'admin.tag.index': '/admin/tag',
-                                    'admin.pengguna.index': '/admin/pengguna',
                                     'admin.laporan.index': '/admin/laporan',
                                 };
 
@@ -217,15 +162,7 @@ export default function Sidebar({ auth, isOpen, onClose }) {
                                             </span>
                                             {active && (
                                                 <span className="ml-auto">
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        className="h-4 w-4 text-primary-content"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                        stroke="currentColor"
-                                                    >
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                                                    </svg>
+                                                    <ChevronRight className="h-4 w-4 text-primary-content" />
                                                 </span>
                                             )}
                                         </Link>
@@ -237,17 +174,16 @@ export default function Sidebar({ auth, isOpen, onClose }) {
 
                     {/* Footer */}
                     <div className="border-t border-base-300 p-4">
-                        <Link href={route('profile.edit')} className="btn btn-block justify-start gap-2 btn-ghost">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                                />
-                            </svg>
-                            Profile
-                        </Link>
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                router.post(route('logout'));
+                            }}
+                            className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-base-content transition-all hover:bg-error/10 hover:text-error"
+                        >
+                            <LogOut className="h-5 w-5" />
+                            <span className="font-medium">Keluar</span>
+                        </button>
                     </div>
                 </div>
             </aside>

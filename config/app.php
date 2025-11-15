@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Aplikasi Rekap Tahunan Link Konten Media Sosial Kanwil Kemenag Prov. Papua'),
 
     /*
     |--------------------------------------------------------------------------
