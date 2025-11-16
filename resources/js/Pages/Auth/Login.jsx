@@ -2,7 +2,7 @@ import Alert from '@/Components/ui/Alert';
 import Button from '@/Components/ui/Button';
 import Card, { CardBody, CardHeader, CardTitle } from '@/Components/ui/Card';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, Eye, EyeOff, Lock, Mail, User } from 'lucide-react';
+import { AlertCircle, Eye, EyeOff, Lock, Mail } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Login({ status, canResetPassword }) {
@@ -47,8 +47,12 @@ export default function Login({ status, canResetPassword }) {
                 <Card className="relative z-10 w-full max-w-md border-2 border-primary/20 bg-base-100/95 shadow-2xl backdrop-blur-sm">
                     <CardHeader className="flex flex-col items-center justify-center pb-2">
                         {/* Logo/Icon */}
-                        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary shadow-lg">
-                            <User className="h-8 w-8 text-white" />
+                        <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center">
+                            <img 
+                                src="/images/logo.png" 
+                                alt="Logo Kanwil Kemenag Prov. Papua" 
+                                className="h-full w-full object-contain"
+                            />
                         </div>
                         <CardTitle className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-center text-2xl font-bold text-transparent">
                             Selamat Datang

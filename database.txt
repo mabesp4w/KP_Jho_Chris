@@ -29,7 +29,6 @@ return new class extends Migration
     }
 };
 
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -85,7 +84,7 @@ return new class extends Migration
             $table->text('link_konten'); // Link/URL konten
 
             // Tanggal publikasi
-            $table->date('tgl_publikasi'); // Tanggal publikasi
+            $table->smallInteger('tgl_publikasi'); // Tanggal publikasi
             $table->year('tahun'); // Tahun (untuk rekap tahunan)
             $table->tinyInteger('bulan'); // Bulan (1-12)
 
@@ -124,7 +123,6 @@ return new class extends Migration
     }
 };
 
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -152,8 +150,9 @@ return new class extends Migration
             $table->foreignId('id_tag')->constrained('tag')->onDelete('cascade');
             $table->timestamps();
 
-            // Unique constraint untuk menghindari duplikasi
-            $table->unique(['id_konten']);
+            // Composite unique constraint untuk menghindari duplikasi kombinasi konten dan tag
+            // Ini memungkinkan satu konten memiliki banyak tag, dan satu tag bisa dimiliki banyak konten
+            $table->unique(['id_konten', 'id_tag'], 'konten_tag_unique');
         });
     }
 
@@ -167,4 +166,53 @@ return new class extends Migration
     }
 };
 
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('konten', function (Blueprint $table) {
+            // Drop index yang menggunakan tahun dan bulan
+            $table->dropIndex(['tahun', 'bulan']);
+        });
+        
+        // Drop columns tahun dan bulan
+        Schema::table('konten', function (Blueprint $table) {
+            $table->dropColumn(['tahun', 'bulan']);
+        });
+        
+        // Change tgl_publikasi from smallInteger to date
+        // Using raw SQL to avoid doctrine/dbal dependency
+        DB::statement('ALTER TABLE konten MODIFY tgl_publikasi DATE');
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        // Change tgl_publikasi back to smallInteger
+        DB::statement('ALTER TABLE konten MODIFY tgl_publikasi SMALLINT');
+        
+        // Add back tahun and bulan columns
+        Schema::table('konten', function (Blueprint $table) {
+            $table->year('tahun')->after('tgl_publikasi');
+            $table->tinyInteger('bulan')->after('tahun');
+        });
+        
+        // Add back index
+        Schema::table('konten', function (Blueprint $table) {
+            $table->index(['tahun', 'bulan']);
+        });
+    }
+};
 

@@ -46,8 +46,12 @@ export default function Welcome({ auth, kontenPublikasi, kontenPopuler, platform
                 <header className="sticky top-0 z-50 border-b border-base-300 bg-base-100/80 shadow-sm backdrop-blur-md">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="flex h-16 items-center justify-between">
-                            <div className="flex items-center gap-2">
-                                <FileText className="h-8 w-8 text-primary" />
+                            <div className="flex items-center gap-3">
+                                <img 
+                                    src="/images/logo.png" 
+                                    alt="Logo Kanwil Kemenag Prov. Papua" 
+                                    className="h-12 w-12 object-contain"
+                                />
                                 <div className="flex flex-col">
                                     <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-sm leading-tight font-bold text-transparent">
                                         Rekap Konten Media Sosial
@@ -313,8 +317,12 @@ export default function Welcome({ auth, kontenPublikasi, kontenPopuler, platform
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="text-center">
                             <div className="mb-4 flex flex-col items-center justify-center gap-2">
+                                <img 
+                                    src="/images/logo.png" 
+                                    alt="Logo Kanwil Kemenag Prov. Papua" 
+                                    className="h-16 w-16 object-contain mb-2"
+                                />
                                 <div className="flex items-center gap-2">
-                                    <FileText className="h-6 w-6 text-primary" />
                                     <span className="text-lg font-bold">Rekap Konten Media Sosial</span>
                                 </div>
                                 <p className="text-sm text-base-content/60">Kanwil Kemenag Prov. Papua</p>

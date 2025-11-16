@@ -110,6 +110,18 @@ export default function Sidebar({ auth, isOpen, onClose }) {
                 }`}
             >
                 <div className="flex h-full flex-col">
+                    {/* Logo */}
+                    <div className="border-b border-base-300 p-4">
+                        <div className="flex items-center justify-center">
+                            <img 
+                                src="/images/logo.png" 
+                                alt="Logo Kanwil Kemenag Prov. Papua" 
+                                className="h-12 w-12 object-contain"
+                            />
+                        </div>
+                        <p className="mt-2 text-center text-xs font-semibold text-base-content">Kanwil Kemenag Prov. Papua</p>
+                    </div>
+                    
                     {/* User Info */}
                     <div className="border-b border-base-300 p-4">
                         <div className="flex items-center gap-3">
