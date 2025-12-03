@@ -2,7 +2,7 @@ import Avatar from '@/Components/ui/Avatar';
 import { Link, router, usePage } from '@inertiajs/react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { BarChart3, ChevronRight, FileText, LayoutDashboard, LogOut, Monitor, Tag } from 'lucide-react';
+import { BarChart3, ChevronRight, FileText, FolderTree, LayoutDashboard, LogOut, Monitor, Tag } from 'lucide-react';
 import { useEffect } from 'react';
 
 export default function Sidebar({ auth, isOpen, onClose }) {
@@ -42,6 +42,11 @@ export default function Sidebar({ auth, isOpen, onClose }) {
             icon: <FileText className="h-5 w-5" />,
         },
         {
+            name: 'Kategori',
+            route: 'admin.kategori-konten.index',
+            icon: <FolderTree className="h-5 w-5" />,
+        },
+        {
             name: 'Tag',
             route: 'admin.tag.index',
             icon: <Tag className="h-5 w-5" />,
@@ -61,6 +66,7 @@ export default function Sidebar({ auth, isOpen, onClose }) {
             'admin.dashboard': '/admin/dashboard',
             'admin.platform.index': '/admin/platform',
             'admin.konten.index': '/admin/konten',
+            'admin.kategori-konten.index': '/admin/kategori-konten',
             'admin.tag.index': '/admin/tag',
             'admin.laporan.index': '/admin/laporan',
         };
@@ -144,6 +150,7 @@ export default function Sidebar({ auth, isOpen, onClose }) {
                                     'admin.dashboard': '/admin/dashboard',
                                     'admin.platform.index': '/admin/platform',
                                     'admin.konten.index': '/admin/konten',
+                                    'admin.kategori-konten.index': '/admin/kategori-konten',
                                     'admin.tag.index': '/admin/tag',
                                     'admin.laporan.index': '/admin/laporan',
                                 };

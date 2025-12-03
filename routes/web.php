@@ -48,10 +48,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
         ]);
     })->name('pengguna.index');
 
-    // Laporan Routes (placeholder - akan dibuat controller nanti)
-    Route::get('/laporan', function () {
-        return Inertia::render('Admin/Laporan/Index');
-    })->name('laporan.index');
+    // Laporan Routes
+    Route::get('/laporan', [\App\Http\Controllers\Admin\LaporanController::class, 'index'])->name('laporan.index');
+    Route::get('/laporan/export/excel', [\App\Http\Controllers\Admin\LaporanController::class, 'exportExcel'])->name('laporan.export.excel');
+    Route::get('/laporan/export/pdf', [\App\Http\Controllers\Admin\LaporanController::class, 'exportPdf'])->name('laporan.export.pdf');
 });
 
 // Petugas Routes - Hanya bisa diakses oleh petugas
