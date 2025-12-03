@@ -42,7 +42,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(route('petugas.dashboard', absolute: false));
         }
 
-        // Default redirect ke dashboard umum
+        // Default redirect ke dashboard user
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

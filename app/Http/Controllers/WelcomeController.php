@@ -15,11 +15,11 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        // Konten yang dipublikasi (terbaru)
+        // Konten yang dipublikasi (terbaru) - hanya 3 konten untuk preview
         $kontenPublikasi = Konten::with(['platform', 'kategori', 'tags'])
             ->where('status_konten', 'publikasi')
             ->orderBy('tgl_publikasi', 'desc')
-            ->limit(12)
+            ->limit(3)
             ->get();
 
         // Statistik publik
@@ -59,6 +59,85 @@ class WelcomeController extends Controller
                 'totalKategori' => $totalKategori,
             ],
         ]);
+    }
+
+    /**
+     * Display all public konten with search and filter.
+     */
+    public function konten(Request $request)
+    {
+        $query = Konten::with(['platform', 'kategori', 'tags'])
+            ->where('status_konten', 'publikasi');
+
+        // Search
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('judul_konten', 'like', "%{$search}%")
+                    ->orWhere('link_konten', 'like', "%{$search}%")
+                    ->orWhereHas('platform', function ($q) use ($search) {
+                        $q->where('nm_platform', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('kategori', function ($q) use ($search) {
+                        $q->where('nm_kategori', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        // Filter by platform
+        if ($request->has('platform') && $request->platform) {
+            $query->where('id_platform', $request->platform);
+        }
+
+        // Filter by kategori
+        if ($request->has('kategori') && $request->kategori) {
+            $query->where('id_kategori', $request->kategori);
+        }
+
+        // Filter by tag
+        if ($request->has('tag') && $request->tag) {
+            $query->whereHas('tags', function ($q) use ($request) {
+                $q->where('tag.id', $request->tag);
+            });
+        }
+
+        $kontens = $query->orderBy('tgl_publikasi', 'desc')->paginate(12);
+
+        // Get filter options
+        $platforms = Platform::where('status_aktif', true)->get();
+        $kategoris = KategoriKonten::all();
+        $tags = \App\Models\Tag::all();
+
+        // Statistik
+        $totalKonten = Konten::where('status_konten', 'publikasi')->count();
+        $totalPlatform = Platform::where('status_aktif', true)->count();
+        $totalKategori = KategoriKonten::count();
+
+        return Inertia::render('Public/Konten/Index', [
+            'kontens' => $kontens,
+            'platforms' => $platforms,
+            'kategoris' => $kategoris,
+            'tags' => $tags,
+            'stats' => [
+                'totalKonten' => $totalKonten,
+                'totalPlatform' => $totalPlatform,
+                'totalKategori' => $totalKategori,
+            ],
+            'filters' => [
+                'search' => $request->search ?? '',
+                'platform' => $request->platform ?? '',
+                'kategori' => $request->kategori ?? '',
+                'tag' => $request->tag ?? '',
+            ],
+        ]);
+    }
+
+    /**
+     * Display the about page.
+     */
+    public function tentang()
+    {
+        return Inertia::render('Public/Tentang/Index');
     }
 }
 

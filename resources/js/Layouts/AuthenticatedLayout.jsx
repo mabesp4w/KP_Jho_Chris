@@ -46,13 +46,32 @@ export default function AuthenticatedLayout({ auth, header, children }) {
                                 <Link href={route('dashboard')}>Dashboard</Link>
                             </li>
                             {auth.user.role === 'admin' && (
-                                <li>
-                                    <Link href={route('admin.dashboard')}>Admin Dashboard</Link>
-                                </li>
+                                <>
+                                    <li>
+                                        <Link href={route('admin.dashboard')}>Admin Dashboard</Link>
+                                    </li>
+                                    <li>
+                                        <Link href={route('admin.konten.index')}>Kelola Konten</Link>
+                                    </li>
+                                    <li>
+                                        <Link href={route('admin.platform.index')}>Kelola Platform</Link>
+                                    </li>
+                                    <li>
+                                        <Link href={route('admin.kategori-konten.index')}>Kelola Kategori</Link>
+                                    </li>
+                                    <li>
+                                        <Link href={route('admin.tag.index')}>Kelola Tag</Link>
+                                    </li>
+                                </>
                             )}
                             {auth.user.role === 'petugas' && (
                                 <li>
                                     <Link href={route('petugas.dashboard')}>Petugas Dashboard</Link>
+                                </li>
+                            )}
+                            {(auth.user.role !== 'admin' && auth.user.role !== 'petugas') && (
+                                <li>
+                                    <Link href="/konten">Daftar Konten</Link>
                                 </li>
                             )}
                             <li>
@@ -61,7 +80,7 @@ export default function AuthenticatedLayout({ auth, header, children }) {
                         </ul>
                     </div>
                     <Link href={route('dashboard')} className="btn btn-ghost text-xl">
-                        Dashboard
+                        {auth.user.role === 'admin' ? 'Admin Panel' : auth.user.role === 'petugas' ? 'Petugas' : 'Dashboard'}
                     </Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
@@ -70,13 +89,32 @@ export default function AuthenticatedLayout({ auth, header, children }) {
                             <Link href={route('dashboard')}>Dashboard</Link>
                         </li>
                         {auth.user.role === 'admin' && (
-                            <li>
-                                <Link href={route('admin.dashboard')}>Admin</Link>
-                            </li>
+                            <>
+                                <li>
+                                    <Link href={route('admin.dashboard')}>Admin</Link>
+                                </li>
+                                <li>
+                                    <Link href={route('admin.konten.index')}>Konten</Link>
+                                </li>
+                                <li>
+                                    <Link href={route('admin.platform.index')}>Platform</Link>
+                                </li>
+                                <li>
+                                    <Link href={route('admin.kategori-konten.index')}>Kategori</Link>
+                                </li>
+                                <li>
+                                    <Link href={route('admin.tag.index')}>Tag</Link>
+                                </li>
+                            </>
                         )}
                         {auth.user.role === 'petugas' && (
                             <li>
                                 <Link href={route('petugas.dashboard')}>Petugas</Link>
+                            </li>
+                        )}
+                        {(auth.user.role !== 'admin' && auth.user.role !== 'petugas') && (
+                            <li>
+                                <Link href="/konten">Konten</Link>
                             </li>
                         )}
                     </ul>

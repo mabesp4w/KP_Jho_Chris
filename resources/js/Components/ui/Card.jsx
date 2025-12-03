@@ -16,7 +16,7 @@ export function CardHeader({ children, className = '', ...props }) {
 
 export function CardTitle({ children, className = '', ...props }) {
     return (
-        <h2 className={`card-title ${className}`.trim()} {...props}>
+        <h2 className={`card-title p-2 ${className}`.trim()} {...props}>
             {children}
         </h2>
     );

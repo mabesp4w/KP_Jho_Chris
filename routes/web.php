@@ -6,10 +6,15 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index']);
+Route::get('/konten', [\App\Http\Controllers\WelcomeController::class, 'konten'])->name('public.konten.index');
+Route::get('/tentang', [\App\Http\Controllers\WelcomeController::class, 'tentang'])->name('public.tentang.index');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// User Routes - Untuk user yang sudah login (bukan admin/petugas)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\UserController::class, 'dashboard'])->name('dashboard');
+    // User konten menggunakan route publik yang sama, tapi dengan fitur tambahan jika perlu
+    Route::get('/user/konten', [\App\Http\Controllers\UserController::class, 'konten'])->name('user.konten.index');
+});
 
 // Admin Routes - Hanya bisa diakses oleh admin
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
